@@ -1,0 +1,9 @@
+{
+  "EPS": 5.0,
+  "LEARNING_RATE_NH_DP": 0.15,
+  "LEARNING_RATE_VAE_DP": 0.5,
+  "SIGMA_NH": 0.6,
+  "SIGMA_VAE": 0.7,
+  "SIGMA_TK": 1.2
+}
+
