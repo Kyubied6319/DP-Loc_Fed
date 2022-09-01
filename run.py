@@ -12,8 +12,8 @@ def run_sim(cfg, cell_size):
     # Step 2: Train for your life...
     if os.system("python training.py VAE %d %s" % (cell_size, cfg)):
         sys.exit(1)
-    #if os.system("python training.py TRACES %d %s" % (cell_size, cfg)):
-        #sys.exit
+    if os.system("python training.py TRACES %d %s" % (cell_size, cfg)):
+        sys.exit
     # Step 3: Generate results for your paper...
     if os.system("python generator.py VAE %d %s" % (cell_size, cfg)):
         sys.exit(1)
