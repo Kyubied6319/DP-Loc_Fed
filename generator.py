@@ -291,7 +291,7 @@ if __name__ == '__main__':
         data_vis = preproc.convert_init_data_to_coords(data)
 
         preproc.plot_init_data("vae_DP", data_vis)
-        zzz
+  
         pool = Pool(cnf.CPU_CORES)
         # itt csoportositjuk a time-dest szerint a forrast, hogy kevesebb grafot kelljen generalni:
         sdt_dict = {}
