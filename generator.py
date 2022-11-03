@@ -64,7 +64,9 @@ def process(args):
         nodes = preproc.cell2token.values()
 
         inp = np.float32([[[node, dst, slot] for node in nodes]])
+        inp = inp.reshape(len(inp[0], 1, 3))
         outputs = tf.nn.softmax(model(inp)).numpy()
+
         for i, node in enumerate(nodes):
             output = outputs[i]
             try:
