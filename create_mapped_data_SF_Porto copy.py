@@ -137,7 +137,6 @@ def main():
                 open(cnf.AUX_CELL_INFO_FILE % cnf.CELL_SIZE, "wb"))
 
     ALL_CABS = sort_files(cnf.INPUT_DIR, desc=True, fnames_only=True)
-    #ALL_CABS = open(r"C:\Users\Edward\Documents\PProj\DP-Loc\datasets\Porto\Porto_preprocessed.txt", "r")
 
     t_start = time()
 
@@ -157,8 +156,8 @@ def main():
     speeds = []
     # Process every taxi file
     kept = []
-    for cab_id, CAB_FILE in enumerate(ALL_CABS[:1]):
-        print('Cab %d/%d' % (cab_id, cab_num))
+    for cab_id, CAB_FILE in enumerate(ALL_CABS[:cnf.TAXI_NUM]):
+        #print('Cab %d/%d' % (cab_id, cab_num))
 
         with open(CAB_FILE, 'r') as source:
             # this gives a list

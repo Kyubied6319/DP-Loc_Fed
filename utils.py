@@ -8,6 +8,7 @@ import tensorflow.compat.v1 as tf
 from collections import Counter
 
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 from matplotlib import colors
 from operator import itemgetter
 import json
