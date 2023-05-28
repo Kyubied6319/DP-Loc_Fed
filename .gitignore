@@ -1,0 +1,15 @@
+#base datasets
+CapstoneDatasets/
+datasets/
+#venv
+venv/
+#output folders
+Pout/
+out/
+#Output models
+Psaved_model/
+#Output stand alone files
+init_data_orig.png
+init_data_vae_DP.png
+output.txt
+output2.txt

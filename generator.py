@@ -8,7 +8,6 @@ from math import log, exp
 from multiprocessing import Pool
 import random
 from operator import itemgetter
-import heapq
 
 import networkx as nx
 import tensorflow.compat.v1 as tf
@@ -16,7 +15,7 @@ import statistics as st
 import numpy as np
 from preproc import *
 from utils import *
-from tqdm import tqdm
+#from tqdm import tqdm
 import os
 
 np.set_printoptions(threshold=np.inf)
@@ -64,7 +63,8 @@ def process(args):
         nodes = preproc.cell2token.values()
 
         inp = np.float32([[[node, dst, slot] for node in nodes]])
-        inp = inp.reshape(len(inp[0], 1, 3))
+        #inp = inp.reshape(len(inp[0], 1, 3))
+        inp = inp.reshape(len(inp[0]), 1, 3)
         outputs = tf.nn.softmax(model(inp)).numpy()
 
         for i, node in enumerate(nodes):
@@ -94,7 +94,7 @@ def process(args):
                         pass
             G.add_weighted_edges_from(edges)
         return G
-
+    
     count_new_traces = 0
     traces0 = []
     traces1 = []
@@ -119,6 +119,7 @@ def process(args):
             try:
                 trace_len, trace = nx.bidirectional_dijkstra(G, source=src, target=dst, weight='weight')
             except (nx.exception.NetworkXNoPath, nx.exception.NodeNotFound):
+                print("line 122")
                 continue
             # select a uniformly random node for new route for Monte Carlo alg
             for rep in range(0, data[key_dt].count(src)):
@@ -132,8 +133,7 @@ def process(args):
                         except:
                              count = max(0, min(np.random.geometric(0.1), 3))
                         loop = [t]*count
-                        loop_trace.extend(loop)
-                        
+                        loop_trace.extend(loop) 
                     traces0.append([dst, ts, loop_trace])
                     traces1.append([dst, ts, loop_trace])
                     traces5.append([dst, ts, loop_trace])
@@ -154,7 +154,7 @@ def process(args):
                                     loop = [t] * count
                                     loop_trace.append(t)
                                     loop_trace.extend(loop)
-    
+                    
                                 traces0.append([dst, ts, loop_trace])
                         else:
                             for MCMC in range(1, 11):
@@ -243,17 +243,19 @@ def process(args):
                                     traces150.append([dst, ts, loop_trace])
 
 
-    """
-    syn_trace_lens = [len(trace) for _, slot, trace in traces]
-    print("mean syn lens:", st.mean(syn_trace_lens), "median: ", st.median(syn_trace_lens), "mode: ",st.mode(syn_trace_lens))
-    print("stat for repetitions: mean: ", st.mean(counts), "median: ", st.median(counts), "mode: ", st.mode(counts), "max: ", max(counts), "min: ", min(counts), "stdev: ", st.stdev(counts) )
-    print("node not found: ", no_path)
-    print("Processing of chunk %d/%d finished in %.3f seconds." % (chunk, total_chunk, time.time() - start_time))
-    print("new traces: ", count_new_traces)
-    """
+    #Uncomented
+    
     print("non 2 longs: ", counting)
     print("count2s: ", count2s)
-    traces = [traces0, traces1, traces5, traces10, traces25, traces50, traces100, traces150] 
+    traces = [traces0, traces1, traces5, traces10, traces25, traces50, traces100, traces150]
+
+    #syn_trace_lens = [len(i[2]) for trace in traces for i in trace ]
+    #print("mean syn lens:", st.mean(syn_trace_lens), "median: ", st.median(syn_trace_lens), "mode: ",st.mode(syn_trace_lens))
+    #print("stat for repetitions: mean: ", st.mean(count2s), "median: ", st.median(count2s), "mode: ", st.mode(count2s), "max: ", max(count2s), "min: ", min(count2s), "stdev: ", st.stdev(count2s) )
+    #print("node not found: ", no_path)
+    print("Processing of chunk %d/%d finished in %.3f seconds." % (chunk, total_chunk, time.time() - start_time))
+    print("new traces: ", count_new_traces)
+    
     return traces
 
 
@@ -265,7 +267,7 @@ if __name__ == '__main__':
         from models import VAE
         print("--------------------------------------- INIT GENERATOR --------------------------------------------------")
 
-
+        t1 = time.time()
         vae = VAE(original_dim=cnf.VAE_ORIG_DIM, latent_dim=cnf.VAE_LATENT_DIM, hidden_dim=cnf.VAE_HIDDEN_DIM,
                   max_words_num=len(preproc.token2cell.values()), max_slots=preproc.MAX_SLOTS)
         rep_file = cnf.PATH_VAE % (cnf.CELL_SIZE, cnf.EPS)
@@ -284,10 +286,10 @@ if __name__ == '__main__':
 
         # Dump data for evaluation
         pickle.dump(data, open(rep_init_file, "wb"))
-
+        print("Finished Init", time.time()-t1)
     else:
         print("---------------------------------------TRACE  GENERATOR --------------------------------------------------")
-
+        t2 = time.time()
         data = pickle.load(open(rep_init_file, "rb"))
 
         data_vis = preproc.convert_init_data_to_coords(data)
@@ -295,7 +297,7 @@ if __name__ == '__main__':
         preproc.plot_init_data("vae_DP", data_vis)
   
         pool = Pool(cnf.CPU_CORES)
-        # itt csoportositjuk a time-dest szerint a forrast, hogy kevesebb grafot kelljen generalni:
+        # here we group the sources according to time-dest, so that fewer graphs are needed in general:
         sdt_dict = {}
         sdt_cnt = {}
         listsdt = []
@@ -307,14 +309,18 @@ if __name__ == '__main__':
             else:
                 listsdt[i % cnf.CPU_CORES][(dest, time)] = []
                 listsdt[i % cnf.CPU_CORES][(dest, time)].append(src)
-
+        print("line 312")
         data_chunks = [(i + 1, cnf.CPU_CORES, listsdt[i]) for i in range(len(listsdt))]
-
+        print("line 314")
         traces = pool.map(process, data_chunks)
-        pickle.dump(traces, open("traces.pickle", "wb"))
-
+        pool.close()
+        pool.join()
+        print("line 318")
+        pickle.dump(traces, open("Pout/traces.pickle", "wb"))
+        print("line 320")
         mcmcs = [0, 1, 5, 10, 25, 50, 100, 150]
         for MCMC in mcmcs:
+            print("line3123")
             rep_traces_file = cnf.GENERATED_TRACES_FILE % (cnf.CELL_SIZE, cnf.EPS, MCMC)
             tr = []
             for line in traces:
@@ -322,4 +328,4 @@ if __name__ == '__main__':
                     tr.append(element)
                 #tr = [x for y in traces[mcmcs.index(MCMC)] for x in y]
             pickle.dump(tr, open(rep_traces_file, "wb"))
-
+        print("Finish Vae: ", time.time()-t2)

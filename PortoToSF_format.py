@@ -4,18 +4,24 @@ import re
 
 min_lat, max_lat = 90, -90
 min_lon, max_lon = 180, -180
-file = open('datasets/Porto/raw.csv', 'r')
+file = open(r'C:\Users\Edward\Documents\PProj\DP-Loc\datasets\hide\taxi_train.csv', 'r')
 new_file = open('datasets/Porto/Porto_preprocessed.txt', 'w+')
 file.readline()
-c = 0
+c = 120
 # set how many lines you need with the parameter c, SF taxi has approx 120.000 after preprocessing
 while c < 200000:  
     line = file.readline()
     #for line in file:
     split_line = line.split(',')
     c += 1
+    #timestamp
     ts = int(split_line[5][1:-1])
     trace = re.findall(r"(?:\[)([.\d, -]{1,50})(?:\])", line)
+    if c < 126:
+        print("Line: ",line)
+        print("Split_line: ",split_line)
+        print("Timestamp: ",ts)
+        print("Trace: ",trace)
     for i in range(len(trace)):
         gps = trace[i].split(",")
         row = str(gps[1]) + " " + str(gps[0]) + " " + str(1) + " " + str(ts + i*15) + "\n"  # lat, lon is needed for create_mapped_data.py
