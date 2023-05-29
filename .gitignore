@@ -3,13 +3,16 @@ CapstoneDatasets/
 datasets/
 #venv
 venv/
+__pycache__/
 #output folders
 Pout/
 out/
+#Unused
+juypter/
+OldFiles/
 #Output models
 Psaved_model/
 #Output stand alone files
 init_data_orig.png
 init_data_vae_DP.png
-output.txt
-output2.txt
+poetry.lock

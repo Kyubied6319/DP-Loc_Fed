@@ -3,23 +3,23 @@ import sys
 import time
 import utils
 
+
 cnf = utils.load_cfg("cfg/cfg_general.json")
 
 
 def run_sim(cfg, cell_size):
     print(cfg, cell_size)
-   
     # Step 2: Train for your life...
-    #if os.system("python training.py VAE %d %s" % (cell_size, cfg)):
-        #sys.exit(1)
-    #if os.system("python training.py TRACES %d %s" % (cell_size, cfg)):
-       #sys.exit
+    if os.system("runVAE.sh VAE %d %s" % (cell_size, cfg)):
+        sys.exit(1)
+    if os.system("runTRACE.sh TRACES %d %s" % (cell_size, cfg)):
+        sys.exit
     #Step 3: Generate results for your paper...
-    #if os.system("python generator.py VAE %d %s" % (cell_size, cfg)):
-        #sys.exit(1)
+    if os.system("python generator.py VAE %d %s" % (cell_size, cfg)):
+        sys.exit(1)
     
-    #if os.system("python generator.py TRACES %d %s" % (cell_size, cfg)):
-        #sys.exit(1)
+    if os.system("python generator.py TRACES %d %s" % (cell_size, cfg)):
+        sys.exit(1)
     # Step 4: Evaluate your performance...
     for m in [0, 1, 5, 10, 25, 50, 100, 150]: 
     	if os.system("python evaluate.py %d %s %d" % (cell_size, cfg, m)):

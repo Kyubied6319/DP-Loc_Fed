@@ -272,7 +272,7 @@ if __name__ == '__main__':
                   max_words_num=len(preproc.token2cell.values()), max_slots=preproc.MAX_SLOTS)
         rep_file = cnf.PATH_VAE % (cnf.CELL_SIZE, cnf.EPS)
         vae.load_weights(rep_file)
-
+        print("vae model loaded")
         data = generate_init_data(vae, num=preproc.train_size)
 
         print("Data records before filtering:", len(data))
