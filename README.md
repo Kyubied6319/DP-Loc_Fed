@@ -4,9 +4,14 @@ Lestyán, Szilvia, Gergely Ács, and Gergely Biczók. "In Search of Lost Utility
 https://petsymposium.org/2022/files/papers/issue3/popets-2022-0076.pdf
 
 ## Usage
-0. Create venv with libraries in requirements.txt
-1. Edit `cfg/*.cfg`
-2. Run `run.py` for the evaluation
+0. Install Poetry(dont forget to assign PATH)
+1. Cd to directory of project 
+2. run 'poetry install'
+3. run 'poetry shell'
+4. pip -r install requirements.txt
+5. Create venv with libraries in requirements.txt(Highly recommend usage of poetry)
+6. Edit `cfg/*.cfg`
+7. Run `run.py` for the evaluation
     - Step 1: Mapping GPS to grid (`create_mapped_data.py`)
     - Step 2: Train VAE and Next-hop models (`training.py`)
     - Step 3: Generate synthetic data (`generator.py`)
