@@ -294,7 +294,7 @@ def main() -> None:
         strategy = SaveModelStrategy()
 
         hist = fl.server.start_server(
-            server_address="0.0.0.0:45432",
+            server_address="127.0.0.1:33432",
             strategy = strategy,
             config=fl.server.ServerConfig(num_rounds=3),
         )
@@ -330,7 +330,7 @@ def main() -> None:
         strategy = SaveModelStrategy()
 
         hist = fl.server.start_server(
-            server_address="0.0.0.0:12345",
+            server_address="127.0.0.1:9001",
             strategy = strategy,
             config=fl.server.ServerConfig(num_rounds=3),
         )

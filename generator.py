@@ -38,6 +38,7 @@ for n in nodes:
             except:
                 pass
     nearests[n] = [k for k, v in heapq.nsmallest(20, temp.items(), key=lambda item: item[1])]
+print("Preprocess and projector done")
 def generate_init_data(vae, num):
     return vae.sample(num).numpy()
 

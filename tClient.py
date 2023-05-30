@@ -298,23 +298,9 @@ def main() -> None:
                 return loss
         
         fl.client.start_numpy_client(
-            server_address="127.0.0.1:"+"45432", 
+            server_address="127.0.0.1:"+"33432", 
             client=Client(), 
         )
-        # doesn't work: vae.save(PATH_VAE)
-        #rep_file = cnf.PATH_VAE % (cnf.CELL_SIZE, cnf.EPS)
-        #print("Saving model to %s..." % rep_file)
-        #vae.save_weights(rep_file)
-        # tf.saved_model.save(vae, "saved_model/vae")
-
-        
-
-        # Reconstruct original data with the trained (should be almost perfect)
-        # data = vae.predict(tf.convert_to_tensor(init_train_data, dtype = tf.float32))
-        # data = preproc.convert_init_data_to_coords(data)
-        # print ("Orig (only a few samples):", orig[:5])
-        # print ("Reconstruction (only a few samples):", data[:5])
-        # preproc.plot_init_data("vae_NODP_recon", data)
 
     elif sys.argv[1] == "TRACES":
         # Train next_hop model
@@ -345,7 +331,7 @@ def main() -> None:
                 return loss
             
         fl.client.start_numpy_client(
-            server_address="127.0.0.1:12345",
+            server_address="127.0.0.1:9001",
             client=Client(), 
         )
         #rep_file = cnf.PATH_NH % (cnf.CELL_SIZE, cnf.EPS)

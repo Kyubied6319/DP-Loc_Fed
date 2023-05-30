@@ -4,7 +4,7 @@
 
 echo "Starting server"
 
-python GRPC_VERBOSITY=debug serverVT.py $1 $2 $3 &
+python serverVT.py $1 $2 $3 &
 sleep 3  # Sleep for 3s to give the server enough time to start
 
 # Ensure that the Keras dataset used in client.py is already cached.
