@@ -5,8 +5,8 @@ https://petsymposium.org/2022/files/papers/issue3/popets-2022-0076.pdf
 
 ## Usage
 0. Install dependency manager Poetry https://python-poetry.org/docs/#installation
-1. Install dependencies of pyproject.toml via `Poetry install`
-2. Create venv via `Poetry shell`
+1. Create venv and install dependencies of pyproject.toml via `Poetry install`
+2. Activate venv via `Poetry shell`
 3. Install dependencies via the command `pip install -r requirements.txt`
 4. Create venv with libraries in requirements.txt
 5. Edit `cfg/*.cfg`
