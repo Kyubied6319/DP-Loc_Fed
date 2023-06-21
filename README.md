@@ -1,12 +1,16 @@
-# DP-Loc
-This code generates differentially private synthetic location traces. The algorithm, the model parameters, and everything that you need to know can be found in the paper:
+# FedDP-Loc
+This code generates differentially private synthetic location traces in a Federated Learning environment. The algorithm, the model parameters, and everything that you need to know can be found in the paper:
 Lestyán, Szilvia, Gergely Ács, and Gergely Biczók. "In Search of Lost Utility: Private Location Data." Proceedings on Privacy Enhancing Technologies 3 (2022): 354-372.
 https://petsymposium.org/2022/files/papers/issue3/popets-2022-0076.pdf
 
 ## Usage
-0. Create venv with libraries in requirements.txt
-1. Edit `cfg/*.cfg`
-2. Run `run.py` for the evaluation
+1. Install dependency manager Poetry https://python-poetry.org/docs/#installation
+2. Create venv and install dependencies of pyproject.toml via `Poetry install`
+3. Activate venv via `Poetry shell`
+4. Install dependencies via the command `pip install -r requirements.txt`
+5. Create venv with libraries in requirements.txt
+6. Edit `cfg/*.cfg`
+7. Run `run.py` for the evaluation, which runs the following file successively:
     - Step 1: Mapping GPS to grid (`create_mapped_data.py`)
     - Step 2: Train VAE and Next-hop models (`training.py`)
     - Step 3: Generate synthetic data (`generator.py`)

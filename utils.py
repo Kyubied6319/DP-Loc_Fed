@@ -8,6 +8,7 @@ import tensorflow.compat.v1 as tf
 from collections import Counter
 
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 from matplotlib import colors
 from operator import itemgetter
 import json
@@ -62,7 +63,7 @@ def plot_init_data(name, data, max_x, max_y, max_t, cell_size):
         ax.set_title(name)
 
     # Source
-    data = np.array(data, dtype=np.int)
+    data = np.array(data, dtype=int)
     cnt = Counter([tuple(x) for x in data[:, 0:2]])
     plot_cmap(axs[0], name + "_source", cnt, colorb=True)
 

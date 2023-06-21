@@ -3,19 +3,19 @@ import sys
 import time
 import utils
 
+
 cnf = utils.load_cfg("cfg/cfg_general.json")
 
 
 def run_sim(cfg, cell_size):
     print(cfg, cell_size)
-   
     # Step 2: Train for your life...
-    if os.system("python training.py VAE %d %s" % (cell_size, cfg)):
+    if os.system("runVAE.sh VAE %d %s" % (cell_size, cfg)):
         sys.exit(1)
-    if os.system("python training.py TRACES %d %s" % (cell_size, cfg)):
+    if os.system("runTRACE.sh TRACES %d %s" % (cell_size, cfg)):
         sys.exit
-    # Step 3: Generate results for your paper...
-    if os.system("python generator.py VAE %d %s" % (cell_size, cfg)):
+    #Step 3: Generate results for your paper...
+    if os.system("python generator.py VAE %d %s > gen.txt" % (cell_size, cfg)):
         sys.exit(1)
     
     if os.system("python generator.py TRACES %d %s" % (cell_size, cfg)):
@@ -26,7 +26,7 @@ def run_sim(cfg, cell_size):
             sys.exit(1)
     
 
-# 315 -> 250 m, 632 -> 500 m, 1264
+# Cell size conversions: 315 -> 250 m, 632 -> 500 m, 1264
 for cell_size in [632]:
 
     print("======================== ", cnf.INPUT_DIR, "=================================")
@@ -35,9 +35,9 @@ for cell_size in [632]:
     time_string = time.strftime("%m/%d/%Y, %H:%M:%S", named_tuple)
     print("STARTING TIME: ", time_string)
 
-    # Step 1: Map taxi GPS data to a grid
-    #if os.system("python create_mapped_data.py %f" % cell_size):
-        #sys.exit(1)
+    # Step 1: Map taxi GPS data to a grid (THESE BELOW HAVE BEEN UNCOMMENTED)
+    if os.system("python create_mapped_data.py %f" % cell_size):
+        sys.exit(1)
     
     #print("=================================================================== EPS = 0.5 ================================================================")
     #run_sim("cfg/cfg_eps05.json", cell_size=cell_size)

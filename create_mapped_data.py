@@ -137,6 +137,7 @@ def main():
                 open(cnf.AUX_CELL_INFO_FILE % cnf.CELL_SIZE, "wb"))
 
     ALL_CABS = sort_files(cnf.INPUT_DIR, desc=True, fnames_only=True)
+    #ALL_CABS = open(r"C:\Users\Edward\Documents\PProj\DP-Loc\datasets\Porto\Porto_preprocessed.txt", "r")
 
     t_start = time()
 
@@ -156,8 +157,8 @@ def main():
     speeds = []
     # Process every taxi file
     kept = []
-    for cab_id, CAB_FILE in enumerate(ALL_CABS[:cnf.TAXI_NUM]):
-        #print('Cab %d/%d' % (cab_id, cab_num))
+    for cab_id, CAB_FILE in enumerate(ALL_CABS[:1]):
+        print('Cab %d/%d' % (cab_id, cab_num))
 
         with open(CAB_FILE, 'r') as source:
             # this gives a list
@@ -207,7 +208,9 @@ def main():
                 last_pos, next_pos = np.asarray(new_trace[i - 1][0]).astype(float), np.asarray(new_trace[i][0]).astype(
                     float)
                 start_ts, end_ts = new_trace[i - 1][1], new_trace[i][1]
+                #print("start", start_ts, " final ", end_ts)
                 diff = int(abs(start_ts - end_ts) / cnf.AGG_TIME)
+                #print(diff)
                 gap_len = diff - 1
                 if 1 < diff <= cnf.MAX_GAP_LEN:
                     diff_vec = (next_pos - last_pos) / (gap_len + 1)
@@ -227,7 +230,7 @@ def main():
             # map to David Hilbert
             # new_trace = [(point_to_hilbert_curve(visit[0][0], visit[0][1], HILB_ORDER) + 1, visit[1]) for visit in new_trace]
             # for stats
-
+            #print("line 231", len(new_trace))
             trace_lens_after_agg.append(len(new_trace))
             # new_trace = [(visit[0][0], visit[0][1]) for visit in new_trace]
             new_trace = [(cell2id[visit[0]], visit[1]) for visit in new_trace]
@@ -243,9 +246,9 @@ def main():
 
     # print ("Dropped lengths:", np.mean(diffs), max(diffs), min(diffs), np.median(diffs), np.std(diffs))
     print("Non-contiguous trips (dropped):", dropped)
-
+    
     print_stat("Summary before aggregation (trace_len)", trace_lens_before_agg)
-
+    print("trace len after", len(trace_lens_after_agg))
     print_stat("Summary after aggregation (trace_len)", trace_lens_after_agg)
 
     #print_stat("Summary of kept traces (num_of_traces)", kept)

@@ -326,7 +326,8 @@ def main():
     
     # EMD between src and dst:
     trace_dist = comp_trip(syn_traces, orig_traces)
-    print("avg trace dist between src and dst: ", st.mean(trace_dist))
+    if len(trace_dist) > 0:
+        print("avg trace dist between src and dst: ", st.mean(trace_dist))
     #print("average number of diff cells in syn: ", st.mean(lsyn))
     #print("average number of diff cells in orig: ", st.mean(lorig))
 

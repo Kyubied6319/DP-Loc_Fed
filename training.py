@@ -262,9 +262,10 @@ def main():
         cnf.SIGMA_TK, train_size=0.9)
     if sys.argv[1] == "VAE":
         # Train init model
-        print("=== Training init model...")
+        print("=== Training init model...1")
         vae = VAE(original_dim=cnf.VAE_ORIG_DIM, latent_dim=cnf.VAE_LATENT_DIM, hidden_dim=cnf.VAE_HIDDEN_DIM,
                   max_words_num=len(preproc.cell2token), max_slots=preproc.MAX_SLOTS)
+        #Untrained model intialized
         train_init(vae, init_train_data, sample_locs_init, batch_size=cnf.BATCH_SIZE_VAE_DP, epochs=cnf.EPOCHS_VAE_DP)
 
         # doesn't work: vae.save(PATH_VAE)
@@ -286,7 +287,7 @@ def main():
 
     elif sys.argv[1] == "TRACES":
         # Train next_hop model
-        print("=== Training next-hop model...")
+        print("=== Training next-hop model...2")
         if cnf.PREPROC_MAP_TO_TOP_K:
             model_next_hop = create_model_nh_ffn(len(preproc.cell2token), preproc.top_k_size)
             train_nh(model_next_hop, train_data, train_labels, test_data, test_labels, sample_locs_nh,
@@ -302,7 +303,7 @@ def main():
 
     else:
         # Train init model
-        print("=== Training init model...")
+        print("=== Training init model...3")
         vae = VAE(original_dim=cnf.VAE_ORIG_DIM, latent_dim=cnf.VAE_LATENT_DIM, hidden_dim=cnf.VAE_HIDDEN_DIM,
                   max_words_num=len(preproc.cell2token), max_slots=preproc.MAX_SLOTS)
         train_init(vae, init_train_data, sample_locs_init, batch_size=cnf.BATCH_SIZE_VAE_DP, epochs=cnf.EPOCHS_VAE_DP)
@@ -319,7 +320,7 @@ def main():
         
 
         # Train next_hop model
-        print("=== Training next-hop model...")
+        print("=== Training next-hop model...4")
         if cnf.PREPROC_MAP_TO_TOP_K:
             print("preproc.topk_size:  ", preproc.top_k_size)
             print("preproc.cell2token: ", preproc.cell2token)
