@@ -1,5 +1,5 @@
 # FedDP-Loc
-This code generates differentially private synthetic location traces in a Federated Learning environment. The algorithm, the model parameters, and everything that you need to know can be found in the paper:
+This code generates differentially private synthetic location traces in a Federated Learning environment. These modifications have been made to improve privacy preservation, computational efficiency and hardware requirements. The original algorithm and its parameters can be found in the source paper:
 Lestyán, Szilvia, Gergely Ács, and Gergely Biczók. "In Search of Lost Utility: Private Location Data." Proceedings on Privacy Enhancing Technologies 3 (2022): 354-372.
 https://petsymposium.org/2022/files/papers/issue3/popets-2022-0076.pdf
 
@@ -19,7 +19,10 @@ https://petsymposium.org/2022/files/papers/issue3/popets-2022-0076.pdf
 The output of each step is saved to "out/" and the models are saved to "saved_model"
 
 ## NOTES:
-- input must be in a format of San Francisco dataset or the Porto dataset, where different trips are separated with some separator (here it is a flag) (use create_mapped_data_SF_Porto.py). In case of the GeoLife dataset this is not true, trips are continous, the recording goes on even when the individual is not moving for a longer period of time. For this we have created an alternative create_mapped_data_Geo.py code. This code cuts the input into smaller pieces. Copy the one you want to use to create_mapped_data.py and you wont have to rewrite it run.py
+- input must be in a format of San Francisco dataset or the Porto dataset, where different trips are separated with some separator (here it is a flag) (use create_mapped_data_SF_Porto.py).
+    - In case of the GeoLife dataset this is not true, trips are continuous(the recording goes on even when the individual is not moving for a longer period of time).
+    - For this create_mapped_data_Geo.py must be run beforehand to modify the GeoLife dataset into a suitable format of singular trips.
+    - Backup the create mapped data py files and then rename the desired file formatting py file to create_mapped_data.py and you wont have to rewrite it run.py
 - output and data directories must be created: "out", "saved_model" and "datasets" -  or anything alternatively that you set in the cfg/cfg_general.json
 - in cfg/cfg_general.json you have to set the GPS coordinates of the bounding box. Be careful with anomalies in the data if you want to set it automatically, data is not clean usually. 
 - config files are provided for all datasets. Copy the one in use under cfg/cfg_general.json so you dont have to update its name in the code. 
