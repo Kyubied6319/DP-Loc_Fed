@@ -20,7 +20,7 @@ https://petsymposium.org/2022/files/papers/issue3/popets-2022-0076.pdf
 
 The output of each step is saved to "out/" and the models are saved to "saved_model"
 
-##Input & parameter notes:
+## Input & parameter notes:
 - Input must be in a format of San Francisco dataset or the Porto dataset, where different trips are separated with some separator (here it is a flag) (use create_mapped_data_SF_Porto.py).
     - In case of the GeoLife dataset this is not true, trips are continuous(the data includes goes on even when the subject is immobile).
     - For this create_mapped_data_Geo.py must be run beforehand to modify the GeoLife dataset into a suitable format of singular trips.
@@ -37,7 +37,7 @@ The output of each step is saved to "out/" and the models are saved to "saved_mo
 - you can parallelize the code by setting the CPU_CORES parameter in the config file. Other parameters are also configurable in there.
 - the cfg/cfg_eps files also follow the previous usage, copy the one you would like to use under the name that ends with a number. Eg: cfg_eps1.json
 
-##Sample Datasets
+## Sample Datasets
 -Dataset 1: Taxis of San Francisco( https://crawdad.org/epfl/mobility/20090224/ )
     -Taxi traces are split into taxi trips/rides. Each trip is assumed to belong to separate individuals. 
 -Dataset 2: Taxis of Porto (https://archive.ics.uci.edu/ml/datasets/Taxi+Service+Trajectory+-+Prediction+Challenge,+ECML+PKDD+2015)
