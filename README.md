@@ -38,10 +38,10 @@ The output of each step is saved to "out/" and the models are saved to "saved_mo
 - the cfg/cfg_eps files also follow the previous usage, copy the one you would like to use under the name that ends with a number. Eg: cfg_eps1.json
 
 ## Sample Datasets
--Dataset 1: Taxis of San Francisco( https://crawdad.org/epfl/mobility/20090224/ )
-    -Taxi traces are split into taxi trips/rides. Each trip is assumed to belong to separate individuals. 
--Dataset 2: Taxis of Porto (https://archive.ics.uci.edu/ml/datasets/Taxi+Service+Trajectory+-+Prediction+Challenge,+ECML+PKDD+2015)
-    -Similar to SF dataset, but in order to transform it to the same format use the code PortoToSF_format.py
--Dataset 3: GeoLife Beijing ( https://www.microsoft.com/en-us/download/details.aspx?id=52367&from=https%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fdownloads%2Fb16d359d-d164-469e-9fd4-daa38f2b2e13%2F )
-    -Different from previous two, use create_mapped_data_Geo.py for prerpocessing.
+- Dataset 1: Taxis of San Francisco( https://crawdad.org/epfl/mobility/20090224/ )
+    - Taxi traces are split into taxi trips/rides. Each trip is assumed to belong to separate individuals. 
+- Dataset 2: Taxis of Porto (https://archive.ics.uci.edu/ml/datasets/Taxi+Service+Trajectory+-+Prediction+Challenge,+ECML+PKDD+2015)
+    - Similar to SF dataset, but in order to transform it to the same format use the code PortoToSF_format.py
+- Dataset 3: GeoLife Beijing ( https://www.microsoft.com/en-us/download/details.aspx?id=52367&from=https%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fdownloads%2Fb16d359d-d164-469e-9fd4-daa38f2b2e13%2F )
+    - Different from previous two, use create_mapped_data_Geo.py for prerpocessing.
 
