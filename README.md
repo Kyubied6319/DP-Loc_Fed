@@ -1,5 +1,7 @@
 # FedDP-Loc
-This code generates differentially private synthetic location traces in a Federated Learning environment. These modifications have been made to improve privacy preservation, computational efficiency and hardware requirements. The original algorithm and its parameters can be found in the source paper:
+This code generates differentially private synthetic location traces in a Federated Learning environment. These modifications have been made to improve privacy preservation, computational efficiency and hardware requirements. 
+
+The original algorithm and its parameters can be found in the source paper:
 Lestyán, Szilvia, Gergely Ács, and Gergely Biczók. "In Search of Lost Utility: Private Location Data." Proceedings on Privacy Enhancing Technologies 3 (2022): 354-372.
 https://petsymposium.org/2022/files/papers/issue3/popets-2022-0076.pdf
 
